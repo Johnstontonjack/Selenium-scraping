@@ -1,37 +1,171 @@
-package WebScrapper; 
-import java.io.*;
-import java.util.*;
-import java.util.regex.*;
- 
-import org.openqa.selenium.*;
+// It ain't pretty but it's working...
+
+package WebScrapper;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
+import java.io.IOException;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
- 
-public class wait {
- 
-	public static void main(String[] args) throws IOException {
- 
-		WebDriver driver = new FirefoxDriver();
-		driver.navigate().to("https://en.wikipedia.org/wiki/Trinity_Seven#Anime");
- 
-		List<WebElement> Airdate =  driver.findElements(By.xpath("//th[text()='Original air date']//following::td[contains(text(), '20')]"));
-		List<WebElement> allTitlesza =  driver.findElements(By.xpath("//th[text()='Original air date']//following::td[contains(text(), '20')]"));
-		int i=0;
-		String fileText = "";
- 
-		for (WebElement date : Airdate){
-			String date1 = ((WebElement) Airdate).getText();
-			String Url = (String)((JavascriptExecutor)driver).executeScript("return arguments[0].innerHTML;", allTitlesza.get(i++));
-			final Pattern pattern = Pattern.compile("title=(.+?)>");
-			final Matcher matcher = pattern.matcher(Url);
-			matcher.find();
-			String title = matcher.group(1);
-			fileText = fileText+Airdate+","+allTitlesza+"\n";
-		}
- 
-		Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("books.csv"), "utf-8"));
-		writer.write(fileText);
-		writer.close();
- 
-		driver.close();
-	}
+import java.io.FileOutputStream;
+
+import java.io.IOException;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
+import java.io.IOException;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import static org.junit.Assert.*;
+
+import java.util.List;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+
+import org.openqa.selenium.support.ui.Select;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
+import java.io.IOException;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+import org.apache.poi.ss.usermodel.Cell;
+
+import org.apache.poi.ss.usermodel.Row;
+
+import org.apache.poi.ss.usermodel.Sheet;
+
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
+import java.io.IOException;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class maximumfromtable {
+
+	
+    public static void main(String args[]) throws IOException, InterruptedException {
+        try {
+    	
+
+        WebDriver driver = new FirefoxDriver();
+        driver.get("https://en.wikipedia.org/wiki/Potato");
+        Thread.sleep(5000);
+        
+        //get only table tex
+    
+       
+        String Text = driver.findElement(By.xpath("//a[contains(@href,'/wiki/Andes')]")).getText(); 
+        System.out.println(Text);
+        
+        String Text1 = driver.findElement(By.xpath("//*[@id='mw-content-text']/div/p[4]")).getText(); 
+        System.out.println(Text1);
+        
+      
+            
+        // do whatever you want now, This is raw table values.
+        
+        FileOutputStream fos = new FileOutputStream("Userpass123.xls");
+
+        HSSFWorkbook workbook = new HSSFWorkbook();
+
+        HSSFSheet worksheet = workbook.createSheet("POI WorkSheet");
+
+        HSSFRow row1 = worksheet.createRow((short) 0);
+
+        HSSFCell cell1 = row1.createCell((short) 0);
+
+        cell1.setCellValue(Text);
+
+        HSSFCell cell2 = row1.createCell((short) 1);
+
+        cell2.setCellValue(Text1);
+
+        workbook.write(fos);
+
+        fos.close();
+
+    } catch (FileNotFoundException e) {
+
+    	 e.printStackTrace();
+    }
 }
+@Test
+public void f() {
+}
+
+
+        
+} 
